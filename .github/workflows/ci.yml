@@ -37,8 +37,9 @@ jobs:
           extensions: pdo_mysql
           coverage: none
 
-      - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress
+      - name: Install Composer dependencies (without scripts)
+        run: composer install --prefer-dist --no-progress --no-scripts
+
 
       - name: Create .env.test file
         run: |
@@ -50,6 +51,10 @@ jobs:
 
       - name: Create database schema
         run: php bin/console doctrine:schema:create --env=test
+
+      - name: Clear cache
+        run: php bin/console cache:clear --env=test
+
 
       - name: Run PHPUnit tests
         run: php bin/phpunit
