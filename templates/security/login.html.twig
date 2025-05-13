@@ -1,0 +1,114 @@
+{# templates/security/login.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+    <h1 class="page-title">Se connecter</h1>
+
+    <div class="form-card">
+        {# Affiche l’erreur de login (y compris CSRF) #}
+        {% if error %}
+            <div class="alert">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        <form method="post" action="{{ path('app_login') }}">
+            {# Champ CSRF obligatoire pour form_login #}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="form-group">
+                <label for="username">Adresse Mail</label>
+                <input
+                    type="email"
+                    id="username"
+                    name="_username"
+                    value="{{ last_username }}"
+                    required
+                    autofocus
+                    class="form-input"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="_password"
+                    required
+                    class="form-input"
+                />
+            </div>
+
+            <button type="submit" class="btn-submit">Se connecter</button>
+        </form>
+    </div>
+
+    {# Styles scoping #}
+    <style>
+        .page-title {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+        }
+
+        .form-card {
+            max-width: 500px;
+            margin: 0 auto 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .alert {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #ffecec;
+            color: #b71c1c;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.6rem 0;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            background: transparent;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: #000;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+    </style>
+{% endblock %}
