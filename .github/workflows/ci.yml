@@ -37,24 +37,26 @@ jobs:
           extensions: pdo_mysql
           coverage: none
 
-      - name: Install Composer dependencies (without scripts)
+      - name: Install Composer dependencies (sans scripts)
         run: composer install --prefer-dist --no-progress --no-scripts
 
-
-      - name: Create .env.test file
+      - name: Créer .env.test
         run: |
           echo "APP_ENV=test" > .env.test
           echo "DATABASE_URL=mysql://symfony:Kaamelot59!@127.0.0.1:3306/vampire-v20?serverVersion=8.0&charset=utf8mb4" >> .env.test
 
-      - name: Wait for MySQL to be ready
-        run: sleep 10
+      - name: Attendre MySQL et créer la DB de test
+        run: |
+          sleep 10
+          mysql -h 127.0.0.1 -uroot -proot \
+            -e "CREATE DATABASE IF NOT EXISTS \`vampire-v20_test\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+                GRANT ALL PRIVILEGES ON \`vampire-v20_test\`.* TO 'symfony'@'%';"
 
-      - name: Create database schema
+      - name: Créer le schéma Doctrine (test)
         run: php bin/console doctrine:schema:create --env=test
 
-      - name: Clear cache
+      - name: Clear cache (test)
         run: php bin/console cache:clear --env=test
 
-
-      - name: Run PHPUnit tests
+      - name: Lancer les tests
         run: php bin/phpunit
