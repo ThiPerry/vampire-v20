@@ -1,3 +1,4 @@
+{# templates/base.html.twig #}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -19,31 +20,62 @@
 
         nav {
             background-color: #000;
-            padding: 0.5rem 1rem;          
+            padding: 0.5rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        nav a {
+        /* Logo / Home */
+        nav .logo a {
             color: white;
+            font-size: 1.5rem;
             text-decoration: none;
-            font-size: 1.3rem;            
         }
 
-        nav a i {
-            vertical-align: middle;
+        /* Zone des boutons à droite */
+        nav .actions a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1rem;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid white;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav .actions a:hover {
+            background-color: white;
+            color: black;
         }
 
         main {
-            padding: 1rem;                
+            padding: 1rem;
         }
+
+        .page-title {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+        }
+        /* ... le reste de tes styles ... */
     </style>
 </head>
 <body>
     <nav>
-        <a href="/"><i class="fas fa-home"></i></a>
-        <a href="/profile"><i class="fas fa-user"></i></a>
+        <div class="logo">
+            {# lien vers la page d’accueil #}
+            <a href="{{ path('app_home') }}"><i class="fas fa-home"></i></a>
+        </div>
+        <div class="actions">
+            {% if app.user %}
+                {# Si l’utilisateur est connecté, on propose Déconnexion #}
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
+            {% else %}
+                {# Sinon, on propose S’inscrire et Se connecter #}
+                <a href="{{ path('app_register') }}">S’inscrire</a>
+                <a href="{{ path('app_login') }}">Se connecter</a>
+            {% endif %}
+        </div>
     </nav>
 
     <main>
