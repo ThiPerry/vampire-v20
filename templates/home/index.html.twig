@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+  <div class="home-container">
+    <img src="{{ asset('images/ankh.svg') }}" alt="Ankh" class="home-ankh" />
+  </div>
+
+  <style>
+
+  .home-container {
+    height: calc(100vh - 3rem);   
+    display: flex;
+    justify-content: center;      
+    align-items: center;          
+  }
+
+  /* Taille responsive de l’Ankh */
+  .home-ankh {
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+  }
+</style>
+
+{% endblock %}
+
+
+
+

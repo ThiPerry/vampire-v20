@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Vampire V20{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Cinzel Decorative', serif;
+            background-color: #f5f5f5;
+            color: #111;
+        }
+
+        nav {
+            background-color: #000;
+            padding: 0.5rem 1rem;          
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;            
+        }
+
+        nav a i {
+            vertical-align: middle;
+        }
+
+        main {
+            padding: 1rem;                
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/"><i class="fas fa-home"></i></a>
+        <a href="/profile"><i class="fas fa-user"></i></a>
+    </nav>
+
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+</body>
+</html>
