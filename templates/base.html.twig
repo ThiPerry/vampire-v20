@@ -17,7 +17,6 @@
             background-color: #f5f5f5;
             color: #111;
         }
-
         nav {
             background-color: #000;
             padding: 0.5rem 1rem;
@@ -26,14 +25,29 @@
             align-items: center;
         }
 
-        /* Logo / Home */
-        nav .logo a {
+        /* ==== GAUCHE : Home + Profil ==== */
+        nav .left {
+            display: flex;
+            align-items: center;
+        }
+        nav .left a {
             color: white;
-            font-size: 1.5rem;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-size: 1.5rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav .left a.profile {
+            margin-left: 1.2rem;
+            font-size: 1rem;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid white;
+            border-radius: 4px;
+            text-transform: uppercase;
         }
 
-        /* Zone des boutons à droite */
+        /* ==== DROITE : Inscription / Login / Déconnexion ==== */
         nav .actions a {
             color: white;
             text-decoration: none;
@@ -41,37 +55,56 @@
             padding: 0.4rem 0.8rem;
             border: 1px solid white;
             border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
             transition: background-color 0.3s, color 0.3s;
         }
-        nav .actions a:hover {
+
+        /* Hover & Focus: blanc de fond, texte violet */
+        nav a:hover,
+        nav a:focus {
             background-color: white;
-            color: black;
+            color:rgb(0, 0, 0);  /* violet baroque */
+        }
+
+        /* Lien actif (toutes sections) */
+        nav a.active {
+            background-color: white;
+            color: #8B0000;
         }
 
         main {
             padding: 1rem;
         }
-
         .page-title {
             text-align: center;
             margin: 2rem 0;
             font-size: 2.5rem;
         }
-        /* ... le reste de tes styles ... */
     </style>
 </head>
 <body>
     <nav>
-        <div class="logo">
-            {# lien vers la page d’accueil #}
-            <a href="{{ path('app_home') }}"><i class="fas fa-home"></i></a>
+        <div class="left">
+            {# Home icon #}
+            <a href="{{ path('app_home') }}"
+               title="Accueil">
+                <i class="fas fa-home"></i>
+            </a>
+
+            {% if app.user %}
+                {# Profil link #}
+                <a href="{{ path('app_profile') }}"
+                   class="profile{% if app.request.get('_route') == 'app_profile' %} active{% endif %}">
+                   <i class="fas fa-user"></i>&nbsp;Profil
+                </a>
+            {% endif %}
         </div>
+
         <div class="actions">
             {% if app.user %}
-                {# Si l’utilisateur est connecté, on propose Déconnexion #}
                 <a href="{{ path('app_logout') }}">Déconnexion</a>
             {% else %}
-                {# Sinon, on propose S’inscrire et Se connecter #}
                 <a href="{{ path('app_register') }}">S’inscrire</a>
                 <a href="{{ path('app_login') }}">Se connecter</a>
             {% endif %}

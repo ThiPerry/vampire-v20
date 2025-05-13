@@ -1,0 +1,111 @@
+{# templates/profile/edit.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+    <h1 class="page-title">Mon Profil</h1>
+
+    <div class="form-card">
+        {{ form_start(profileForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
+        <div class="form-group">
+            {{ form_label(profileForm.pseudo) }}
+            {{ form_widget(profileForm.pseudo, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(profileForm.pseudo) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(profileForm.firstName) }}
+            {{ form_widget(profileForm.firstName, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(profileForm.firstName) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(profileForm.email) }}
+            {{ form_widget(profileForm.email, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(profileForm.email) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(profileForm.currentPassword) }}
+            {{ form_widget(profileForm.currentPassword, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(profileForm.currentPassword) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(profileForm.newPassword.first) }}
+            {{ form_widget(profileForm.newPassword.first, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(profileForm.newPassword.first) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(profileForm.newPassword.second) }}
+            {{ form_widget(profileForm.newPassword.second, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(profileForm.newPassword.second) }}
+        </div>
+
+        <button type="submit" class="btn-submit">
+            {{ profileForm.save.vars.label|default('Enregistrer les modifications') }}
+        </button>
+
+        {{ form_end(profileForm, {'render_rest': false}) }}
+    </div>
+
+    {# On récupère ton CSS scoped du login pour l'appliquer ici aussi #}
+    <style>
+        .page-title {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+        }
+
+        .form-card {
+            max-width: 500px;
+            margin: 0 auto 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.6rem 0;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            background: transparent;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: #000;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+    </style>
+{% endblock %}
