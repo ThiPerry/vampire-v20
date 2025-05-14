@@ -7,9 +7,10 @@ services:
       - .:/var/www/html
     working_dir: /var/www/html
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
-      DATABASE_URL: mysql://symfony:Kaamelot59!@db:3306/vampire-v20?serverVersion=8.0&charset=utf8mb4
+      DATABASE_URL: 'mysql://symfony:Kaamelot59!@db:3306/vampire-v20?serverVersion=8.0&charset=utf8mb4'
 
   db:
     image: mysql:8.0
